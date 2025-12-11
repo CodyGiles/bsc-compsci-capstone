@@ -6,3 +6,7 @@ venv/
 ENV/
 
 sklearn-env
+
+imdb_movies - Copy.csv
+imdb_movies - test.csv
+imdb_movies_utf8.csv
