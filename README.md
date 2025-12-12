@@ -1,6 +1,6 @@
 # Background
 
-## In a Sentence
+## In a Sentence (or two)
 
 Submitted as the Capstone project as part of my Bachelor of Science in Computer Science. Requirements were to create a solution that addressed a business problem using Machine Learning. **Please see User Guide on how to run this within Google Colab**
 
