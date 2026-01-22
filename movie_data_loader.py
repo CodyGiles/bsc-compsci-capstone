@@ -32,3 +32,10 @@ class MovieDataLoader:
         if self.df is None:
             raise ValueError("Data not loaded. Call load_and_preprocess() first.")
         return self.df
+
+
+load_movie_data = MovieDataLoader('imdb_movies.csv')   
+
+# Show a sample of the loaded movie data
+df = load_movie_data.load_preprocess()
+df.head()
