@@ -1,12 +1,12 @@
-from actor_encoder import ActorEncoder
-from one_hot_encoder import OneHotEncoderWrapper
-from genre_encoder import GenreEncoder
 import numpy as np
 import pandas as pd
-from xgboost import XGBRegressor
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from xgboost import XGBRegressor
+
+from .actor_encoder import ActorEncoder
+from .genre_encoder import GenreEncoder
+from .one_hot_encoder import OneHotEncoderWrapper
+
 
 class MoviePipeline:
     def __init__(self, **kwargs):
@@ -28,19 +28,21 @@ class MoviePipeline:
 
         self.feature_importance = (
             pd.DataFrame(
-                list(zip(cols, self.model.feature_importances_)),
+                list(zip(cols, self.model.feature_importances_, strict=True)),
                 columns=['feature', 'importance'])
             .sort_values('importance', ascending=False)
         )
 
-# From Towards Data Science to 
+# From Towards Data Science to
     def _preprocess(self, X):
         X = X.copy()
         X['year'] = X['date'].dt.year
         X['month_x'] = (np.sin(2 * np.pi * X['date'].dt.month/12)+1)/2
         X['month_y'] = (np.cos(2 * np.pi * X['date'].dt.month/12)+1)/2
-        X['day_x'] = (np.sin(2 * np.pi * X['date'].dt.day/X['date'].dt.days_in_month)+1)/2
-        X['day_y'] = (np.cos(2 * np.pi * X['date'].dt.day/X['date'].dt.days_in_month)+1)/2
+        X['day_x'] = (np.sin(2 * np.pi * X['date'].dt.day /
+                      X['date'].dt.days_in_month)+1)/2
+        X['day_y'] = (np.cos(2 * np.pi * X['date'].dt.day /
+                      X['date'].dt.days_in_month)+1)/2
         X['dow_x'] = (np.sin(2 * np.pi * X['date'].dt.day_of_week/7)+1)/2
         X['dow_y'] = (np.cos(2 * np.pi * X['date'].dt.day_of_week/7)+1)/2
         return X
@@ -77,5 +79,3 @@ class MoviePipeline:
         )
         df['date'] = pd.to_datetime(df['date'])
         return float(self.predict(df)[0])
-    
-
