@@ -16,6 +16,11 @@ class ModelNotFitError(Exception):
         super().__init__("Model must be fit first.")
 
 
+"""
+The model that tests and trains the input data.
+"""
+
+
 class Model:
     @property
     def test_score(self):
@@ -115,6 +120,10 @@ class MARP:
             return budget
         except ValueError:
             return None
+
+        """
+        The logic for inputting all the data from the user.
+        """
 
     def _get_inputs(self):
         while True:

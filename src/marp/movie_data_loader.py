@@ -29,7 +29,7 @@ class MovieDataLoader:
         df = df.sort_values('date').reset_index(drop=True)
         self.df = df
         print(
-            f"Loaded {df.shape[0]} movies that were released prior to 2024. Here's a sample below:")
+            f"Loaded {df.shape[0]} movies that were released prior to 2024.")
         return df
 
     def get_data(self):
